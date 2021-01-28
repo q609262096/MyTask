@@ -1,0 +1,31 @@
+name: 福利吧签到
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * *'
+  watch:
+    types: [started]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+         
+      - name: 'Install requirements'
+        run: pip install -r ./Task/fuliba/requirements.txt 
+        
+      - name: 'run 福利吧签到' 
+        run: python3 ./Task/fuliba/fuliba.py 
+        env:
+            FULIBA_COOKIE: ${{ secrets.FULIBA_COOKIE }}  #必须
+            BARK_PUSH: ${{ secrets.BARK_PUSH }}     # bark服务
+            SCKEY: ${{ secrets.SCKEY }}   # server酱服务
+
+    
