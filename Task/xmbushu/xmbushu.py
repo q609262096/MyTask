@@ -15,15 +15,15 @@ SCKEY = ''
 # step = str(randint(17000, 18000))
 
 if "user" in os.environ:
-  print("执行自Github action")
-  user = os.environ["user"]
-  passwd = os.environ["passwd"]
-  if "BARK_PUSH" in os.environ and os.environ["BARK_PUSH"]:
-    BARK_PUSH = os.environ["BARK_PUSH"]
-    print("BARK 推送打开")
-  if "SCKEY" in os.environ and os.environ["SCKEY"]:
-    SCKEY = os.environ["SCKEY"]
-    print("serverJ 推送打开")
+    print("执行自Github action")
+    user = os.environ["user"]
+    passwd = os.environ["passwd"]
+    if "BARK_PUSH" in os.environ and os.environ["BARK_PUSH"]:
+        BARK_PUSH = os.environ["BARK_PUSH"]
+        print("BARK 推送打开")
+    if "SCKEY" in os.environ and os.environ["SCKEY"]:
+        SCKEY = os.environ["SCKEY"]
+        print("serverJ 推送打开")
 
 
 now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -52,7 +52,8 @@ def login(user, password):
         "redirect_uri": "https://s3-us-west-2.amazonaws.com/hm-registration/successsignin.html",
         "token": "access"
     }
-    r1 = requests.post(url1, data=data1, headers=headers, allow_redirects=False)
+    r1 = requests.post(url1, data=data1, headers=headers,
+                       allow_redirects=False)
     location = r1.headers["Location"]
     try:
         code = get_code(location)
@@ -182,37 +183,25 @@ def bark(title, content):
         f"""https://api.day.app/{bark_token}/{title}/{content}""")
     print(response.text)
 
-if __name__ == "__main__":
-    # ServerChan
-    # sckey = input()
-    # if str(sckey) == '0':
-    #     sckey = ''
-    # 用户名（格式为 13800138000）
-    # user = input()
-    # 登录密码
-    # passwd = input()
-    # 要修改的步数，直接输入想要修改的步数值，留空为随机步数
-    step = ''
 
-    if os.environ["user"].find('&') > -1:
-      user_list = user.split('&')
+if __name__ == "__main__":
+    step = ''
+    user_list = []
+    passwd_list = []
+    if user.find('&') > -1:
+        user_list = user.split('&')
     else:
-      user_list = user
-    if os.environ["passwd"].find("&") > -1:
-      passwd_list = passwd.split('&')
+        user_list.append(user)
+    if passwd.find("&") > -1:
+        passwd_list = passwd.split('&')
     else:
-      passwd_list = passwd_list
-    # setp_array = step.split('-')
+        passwd_list.append(passwd)
 
     if len(user_list) == len(passwd_list):
         push = ''
         for line in range(0, len(user_list)):
-            # if len(setp_array) == 2:
-            #     step = str(random.randint(int(setp_array[0]), int(setp_array[1])))
-            # elif str(step) == '0':
-                step = ''
-            push += main(user_list[line], passwd_list[line], step) + '\n'
-        # push_wx(sckey, push)
-        bark("小米步数修改",push)
+            step = ''
+            push += main(user_list[line], passwd_list[line], step)
+        bark("小米步数修改", push)
     else:
         print('用户名和密码数量不对')
