@@ -89,7 +89,7 @@ def start():
 
         # 签到
         Checkin_response = s.get('https://' + flb_url + '/' + Checkin_url, headers=headers).text
-        Checkin_result = re.search(r"showDialog\(\'(.*?)\'",Checkin_response).group(1)
+        Checkin_result = re.search(r"errorhandle_fx_checkin\(\'(.*?)\'",Checkin_response).group(1)
         if '签名出错-2,请重新登陆后签到1!' == Checkin_result:
             message += "今日已签到，重复签到！\n"
         else:
