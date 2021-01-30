@@ -194,18 +194,22 @@ if __name__ == "__main__":
     # 要修改的步数，直接输入想要修改的步数值，留空为随机步数
     step = ''
 
-    # if os.environ["user"].index('&') > -1:
+    if os.environ["user"].find('&') > -1:
       user_list = user.split('&')
-    # if os.environ["passwd"].index("&") > -1:
+    else:
+      user_list = user
+    if os.environ["passwd"].find("&") > -1:
       passwd_list = passwd.split('&')
+    else:
+      passwd_list = passwd_list
     # setp_array = step.split('-')
 
     if len(user_list) == len(passwd_list):
         push = ''
         for line in range(0, len(user_list)):
-            if len(setp_array) == 2:
-                step = str(random.randint(int(setp_array[0]), int(setp_array[1])))
-            elif str(step) == '0':
+            # if len(setp_array) == 2:
+            #     step = str(random.randint(int(setp_array[0]), int(setp_array[1])))
+            # elif str(step) == '0':
                 step = ''
             push += main(user_list[line], passwd_list[line], step) + '\n'
         # push_wx(sckey, push)
