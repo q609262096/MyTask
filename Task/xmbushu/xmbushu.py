@@ -194,10 +194,10 @@ if __name__ == "__main__":
     # 要修改的步数，直接输入想要修改的步数值，留空为随机步数
     step = ''
 
-    if os.environ["user"].index('&') > -1:
-      user_list = user.split('#')
-    if os.environ["passwd"].index("&") > -1:
-      passwd_list = passwd.split('#')
+    # if os.environ["user"].index('&') > -1:
+      user_list = user.split('&')
+    # if os.environ["passwd"].index("&") > -1:
+      passwd_list = passwd.split('&')
     # setp_array = step.split('-')
 
     if len(user_list) == len(passwd_list):
