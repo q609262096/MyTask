@@ -6,6 +6,7 @@ import time
 import re
 import json
 import random
+import os
 
 user = ''
 passwd = ''
