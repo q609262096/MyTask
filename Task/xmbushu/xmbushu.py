@@ -14,10 +14,10 @@ BARK_PUSH = ''
 SCKEY = ''
 # step = str(randint(17000, 18000))
 
-if "user" in os.environ:
+if "XM_USER" in os.environ:
     print("执行自Github action")
-    user = os.environ["user"]
-    passwd = os.environ["passwd"]
+    user = os.environ["XM_USER"]
+    passwd = os.environ["XM_PWD"]
     if "BARK_PUSH" in os.environ and os.environ["BARK_PUSH"]:
         BARK_PUSH = os.environ["BARK_PUSH"]
         print("BARK 推送打开")
@@ -185,14 +185,23 @@ def bark(title, content):
 
 
 if __name__ == "__main__":
+    # ServerChan
+    # sckey = input()
+    # if str(sckey) == '0':
+    #     sckey = ''
+    # 用户名（格式为 13800138000）
+    # user = input()
+    # 登录密码
+    # passwd = input()
+    # 要修改的步数，直接输入想要修改的步数值，留空为随机步数
     step = ''
     user_list = []
     passwd_list = []
-    if user.find('&') > -1:
+    if os.environ["XM_USER"].find('&') > -1:
         user_list = user.split('&')
     else:
         user_list.append(user)
-    if passwd.find("&") > -1:
+    if os.environ["XM_PWD"].find("&") > -1:
         passwd_list = passwd.split('&')
     else:
         passwd_list.append(passwd)

@@ -84,8 +84,8 @@ jobs:
           echo .
         }
 
-        user="${{ secrets.USER }}"
-        pwd="${{ secrets.PWD }}"
+        user="${{ secrets.CLOUD_USER }}"
+        pwd="${{ secrets.CLOUD_PWD }}"
         user_list=()
         pwd_list=()
 
